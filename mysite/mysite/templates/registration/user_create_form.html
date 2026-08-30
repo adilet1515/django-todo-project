@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Index
+{% endblock %}
+
+{% block content %}
+<h1>Hello User Create</h1>
+
+
+<div class="position-absolute top-50 start-50 translate-middle">
+<form method="post" >
+  {% csrf_token %}
+{{ form.as_p }}
+
+<button type="submit">Зарегистрироваться</button>
+</form>
+</div>
+{% endblock %}

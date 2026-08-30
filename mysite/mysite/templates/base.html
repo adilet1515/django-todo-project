@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<title>
+    {% block title %}
+Мой интернет-магазин
+    {% endblock %}
+</title>
+ <meta name="description"
+          content="Списки задач для пользователей">
+<meta name="author" content="Adilet">
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a type="button" class="navbar-brand" href="{% url "todo:list"  %}">Список задач</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url "todo:index" %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'users:create_user' %}">Регистрация</a>
+        </li>
+          {% if request.user.is_authenticated %}
+              <li class="nav-item">
+
+                        {% csrf_token %}
+                        <a class="nav-link" href="{% url 'users:logout' %}">Выйти</a>
+
+              {% else %}
+                  <a class="nav-link" href="{% url 'users:login' %}">Вход</a>
+          {% endif %}
+            </li>
+        <li>
+          <a class="nav-link" href="{% url 'todo:create' %}">создать задачу</a>
+      </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+
+
+  </div>
+</nav>
+    {% block content %}
+
+    {% endblock %}
+<script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+
+</body>
+
+
+</html>

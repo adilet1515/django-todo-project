@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Index
+{% endblock %}
+
+{% block content %}
+<h1>Hello World</h1>
+    <div class="container">
+            {{ object.pk }}
+            {{ object.text }}
+            {{ object.author.username }}
+            {{ object.author.email }}
+
+
+    <form method="post">
+    {% csrf_token %}
+               <input class="form-check-input" name="done" type="checkbox" value="" id="flexCheckDefault"
+                       {% if object.done %} checked>
+                          <label class="form-check-label" for="flexCheckDefault" >
+                            Выполнен
+                          </label>
+                    {% else %}
+                <label class="form-check-label" for="flexCheckDefault" >
+                    Не выполнен
+                  </label>
+
+                {% endif %}
+             <button type="submit" class="btn btn-primary">
+                Сохранить
+            </button>
+            <div>
+            <a href="{% url "todo:list"  %}">Назад к списку</a>
+                </div>
+                <div>
+            <a href="{% url "todo:delete" object.pk %}">Удалить</a>
+                </div>
+
+     </form>
+
+
+{% endblock %}
+
